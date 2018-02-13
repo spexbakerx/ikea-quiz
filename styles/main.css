@@ -17,7 +17,7 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
-    z-index: 99;
+    z-index: -1;
 }
 
 .skew {
@@ -27,43 +27,94 @@ body {
 	-moz-transition: all 0.10s ease-in-out;
 	-ms-transition: all 0.10s ease-in-out;
 	-o-transition: all 0.10s ease-in-out;
-/*	width: 800px;
-	height: 600px;*/
-	/*transform: rotateX(45deg) rotateY(45deg);*/
 }
 
 header {
 	margin-top: 5%;
-	line-height: 1.5em;
-	margin-bottom: 40px;
+	line-height: 1em;
+	margin-bottom: 0px;
 }
 
 header h1 {
-	font-size: 450%;
+	font-size: 6.5vw;
+	font-min-size: 60px;
 	line-height: 1em;
 }
 
 
 
-.box {
-	border: 1px solid #f3f3f3;
-	margin-top: 10px;
-	margin-bottom: 10px;
+/*h1{
+  font-weight: 300;
+  margin: 0px;
+  padding: 10px;
+  font-size: 20px;
+  background-color: #444;
+  color: #fff;
+}*/
+
+.question{
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: white;
+/*  text-transform: uppercase;*/
+}
+.answers {
+  margin-bottom: 20px;
+  text-align: left;
+  display: inline-block;
+  color: white;
+}
+.answers label{
+  display: block;
+  margin-bottom: 10px;
+}
+button{
+  font-family: 'Work Sans', sans-serif;
+	font-size: 22px;
+	color: #fff;
+	background-color: Transparent;
+	border: 1px solid #ffcc00;
+	padding: 20px;
+	cursor: pointer;
+	margin-bottom: 20px;
+	outline:none;
+	-webkit-transition: all 0.20s ease-in-out;
+	-moz-transition: all 0.20s ease-in-out;
+	-ms-transition: all 0.20s ease-in-out;
+	-o-transition: all 0.20s ease-in-out;
+}
+button:hover{
+	background-color: #ffcc00;
+	border: 1px solid #ffcc00;
+	outline:none;
+	color: #003399;
+	-webkit-transition: all 0.20s ease-in-out;
+	-moz-transition: all 0.20s ease-in-out;
+	-ms-transition: all 0.20s ease-in-out;
+	-o-transition: all 0.20s ease-in-out;
 }
 
-.box img{
-	position: relative;
-	width: 100.55%;
-	left: -1px;
-	top: -1px;
+
+
+
+
+.slide{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.active-slide{
+  opacity: 1;
+  z-index: 3;
+}
+.quiz-container{
+  position: relative;
+  height: 200px;
+  margin-top: -20px;
 }
 
-.box-text {
-	padding: 10px 18px 20px 18px;
-	line-height: 1.5em;
-}
 
-.box h1 {
-	font-size: 18px;
-	margin-bottom: 5px;
-}

@@ -10,8 +10,6 @@
   <!-- Normalize.css, a cross-browser reset file -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700,900" rel="stylesheet">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="styles/float-grid.css" />
@@ -31,7 +29,8 @@
  	<header>
     	<div class="row">
      		<div class="col-12">
-     			<h1>Ikea Quiz</h1>
+          <p>The only quiz that matters</p>
+     			<h1>Whatchu know about IKEA?</h1>
       		</div>
     	</div>
 	</header>
@@ -41,21 +40,22 @@
 	<main>
 
 	<div class="row">
-      <div class="col-6 col-aligncenter">
-        <div class="box">
-        	<img src="images/rey_square.png">
-        	<div class="box-text">
-        	<h1>Rey</h1>
-			Protagonist, from Jakku columns
-			</div>
-
-		</div>
+    <div class="col-6 col-aligncenter">
+      <div class="quiz-container">
+        <div id="quiz"></div>
       </div>
+          <button id="previous">Previous Question</button>
+          <button id="next">Next Question</button>
+          <button id="submit">Submit Quiz</button>
+        <div id="results"></div>
+		</div>
+  </div>
 
 	</main>
 
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <script src="movement.js"></script>
+  <script src="index.js"></script>
 
 </body>
 </html>
