@@ -1,33 +1,58 @@
 (function() {
   const myQuestions = [
     {
-      question: "Who is the strongest?",
+      question: "How old was Ingvar Kamprad (R.I.P.) when he founded IKEA in 1943?",
       answers: {
-        a: "Superman",
-        b: "The Terminator",
-        c: "Waluigi, obviously"
+        a: "24",
+        b: "17",
+        c: "89"
       },
-      correctAnswer: "c"
+      correctAnswer: "b",
+      explanation: "He was also an admitted member of the Nazi party back in the day, so maybe not R.I.P.?"
     },
     {
-      question: "What is the best site ever created?",
+      question: "What does IKEA stand for?",
       answers: {
-        a: "SitePoint",
-        b: "Simple Steps Code",
-        c: "Trick question; they're both the best"
+        a: "International Klein Everything Always",
+        b: "I Kan't Even Afford (this)",
+        c: "Ingvar Kamprad Elmtaryd Agunnaryd",
+        d: "Who cares it looks cool "
       },
-      correctAnswer: "c"
+      correctAnswer: "c",
+      explanation: "The first two letters are the founder's initials, Elmtaryd and Agunnaryd are the farm and village he grew up in, respectively."
+    },    
+    {
+      question: "IKEA uses approximately how much of the world's entire commercial supply of wood?",
+      answers: {
+        a: "1%",
+        b: "13%",
+        c: "100%"
+      },
+      correctAnswer: "a",
+      explanation: "That's a lot of dang wood."
     },
     {
-      question: "Where is Waldo really?",
+      question: "Ikea was the first company to feature BLANK in one of its ads",
       answers: {
-        a: "Antarctica",
-        b: "Exploring the Pacific Ocean",
-        c: "Sitting in a tree",
-        d: "Minding his own business, so stop asking"
+        a: "A talking dog (eat shit, Air Bud)",
+        b: "A gay couple (eat shit, straight people)",
+        c: "Another company's logo (way to go, Target)",
+        d: "JNCO Jeans"
       },
-      correctAnswer: "d"
-    }
+      correctAnswer: "b",
+      explanation: ":') thx IKEA"
+    },
+    {
+      question: "Ikea changed it's typeface from Futura to Verdana in what year?",
+      answers: {
+        a: "2000",
+        b: "2017",
+        c: "1995",
+        d: "2009",
+      },
+      correctAnswer: "d",
+      explanation: "Understandably, this caused a bit of uproar on the interwebs"
+    }       
   ];
 
   function buildQuiz() {
@@ -45,7 +70,6 @@
         answers.push(
           `<label>
              <input type="radio" name="question${questionNumber}" value="${letter}">
-              ${letter} :
               ${currentQuestion.answers[letter]}
            </label>`
         );
