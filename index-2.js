@@ -72,16 +72,42 @@ let correctTotal= 0;
 
   ];
 
-  function buildQuiz() {
-    // we'll need a place to store the HTML output
-    const output = [];
+  // function buildQuiz() {
+  //   // we'll need a place to store the HTML output
+  //   const output = [];
 
-    // for each question...
-    myQuestions.forEach((currentQuestion, questionNumber) => {
-      // we'll want to store the list of answer choices
-      const answers = [];
+  //   // for each question...
+  //   myQuestions.forEach((currentQuestion, questionNumber) => {
+  //     // we'll want to store the list of answer choices
+  //     const answers = [];
 
-      // and for each available answer...
+  //     // and for each available answer...
+  //     for (letter in currentQuestion.answers) {
+  //       // ...add an HTML radio button
+  //       answers.push(
+  //         `<label>
+  //            <input type="radio" name="question${questionNumber}" value="${currentQuestion.answers[letter]}">
+  //             ${currentQuestion.answers[letter]}
+  //          </label>`
+  //       );
+  //     }
+
+  //     // add this question and its answers to the output
+  //     output.push(
+  //       `<div class="slide">
+  //          <div class="question"> ${currentQuestion.question} </div>
+  //          <div class="answers"> ${answers.join("")} </div>
+  //        </div>`
+  //     );
+  //   });
+
+  //   // finally combine our output list into one string of HTML and put it on the page
+  //   quizContainer.innerHTML = output.join("");
+  // }
+
+
+    function generateQuestion() {
+
       for (letter in currentQuestion.answers) {
         // ...add an HTML radio button
         answers.push(
@@ -106,24 +132,34 @@ let correctTotal= 0;
   }
 
 
+//Function to display the generated question
+function displayQuestion(){
+  console.log('displayQuestion ran');
+  $(".quiz-container").html(generateQuestion());
+ 
+}
+
+
 
 //Function to handle answers,update counter and score
 function handleAnswer(){
-  $("#quiz").on('click', '#check', function (event){
-    event.preventDefault();    
-    let choice = $('input:checked');
-    let userAnswer = choice.val();
-    console.log(userAnswer);
-    checkAnswer(userAnswer);
+    $('#check').on('click', (e => {
+      console.log("check button clicked");
+      event.preventDefault();    
+      let choice = $('input:checked');
+      let userAnswer = choice.val();
+      console.log(userAnswer);
+      checkAnswer(userAnswer);
 
-    updateQuestion();
-    nextButton.style.display = "none";
-    submitButton.style.display = "none";
-    checkButton.style.display = "inline-block";
-    
-  });
+      updateQuestion();
+      nextButton.style.display = "inline-block"; 
+      checkButton.style.display = "none";
+    }));
+  }
+
+handleAnswer();
   
-}
+
 
 //Function to check for correct/incorrect answer
 function checkAnswer(answer){
@@ -142,9 +178,6 @@ function checkAnswer(answer){
       $(".quiz-container").html(displayWrongAnswerMessage());
     } 
 
-    nextButton.style.display = "inline-block";
-    submitButton.style.display = "none";
-    checkButton.style.display = "none";
 }
 
 //Function to display correct answer 
@@ -152,9 +185,10 @@ function displayCorrectAnswerMessage(){
   return `<section class="feedback-page popup">
             <h1> Nice job! That's correct. </h1>
             <p> ${myQuestions[currentQuestion].explanation} </p>
-//         <button class= "nextButton" value="next"> Next Question</button>
           </section>`;
+              
   }
+
 
 //Function to display Wrong answer
 function displayWrongAnswerMessage(){
@@ -173,22 +207,7 @@ function updateScore(){
 }
 
 
-//Function to move to next question
-function nextQuestion(){
-  $('.quiz-container').on ('click', '#next' ,function(event){
-   event.preventDefault();
-   console.log('nextQuestion ran');
-   
-  if (currentQuestion < 6){
-    buildQuiz();
-    handleAnswer();
-  }
-  else {
-    endResults();
-  }
-  
-  })
-}
+
 
 
 //Function to get next question
@@ -233,6 +252,7 @@ function updateQuestion(){
     slides[currentSlide].classList.remove("active-slide");
     slides[n].classList.add("active-slide");
     currentSlide = n;
+    console.log(n);
     
     if (currentSlide === 0) {
       previousButton.style.display = "none";
@@ -274,9 +294,39 @@ function updateQuestion(){
 
   showSlide(0);
 
+
   // on submit, show results
-  submitButton.addEventListener("click", endResults);
-  checkButton.addEventListener("click", handleAnswer);
+    function handleSubmit() {
+    $('#submit').on('click', (e => {
+      endResults() 
+      console.log("this was clicked!") 
+    })
+   )
+  }
+  handleSubmit();
+
+
+// on click of next button, go to next question
+     function nextQuestion() {
+    $('#next').on('click', (e => {
+
+      console.log("this was clicked!") 
+      if (currentQuestion < myQuestions.length){
+         handleAnswer();
+         $("#quiz").removeClass("hidden");
+         $(".feedback-page popup").addClass("hidden");
+         showNextSlide();
+
+      }
+      else {
+          displayResults();
+  }
+    })
+   )
+  }
+  nextQuestion();
+
+
   previousButton.addEventListener("click", showPreviousSlide);
-  nextButton.addEventListener("click", showNextSlide);
+
 })();
