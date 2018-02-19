@@ -3,6 +3,8 @@
 let currentQuestion= 0;
 let correctTotal= 0;
 
+document.getElementById('fader').style.opacity = 1;
+
 // Array of Objects that are the questions and answers
   const myQuestions = [
 
@@ -12,7 +14,8 @@ let correctTotal= 0;
       answers: [
         "24",
         "17",
-        "89"
+        "89",
+        "13"
       ],
       correctAnswer: "17",
       explanation: "He was also an admitted member of the Nazi party back in the day, so maybe not R.I.P.?"
@@ -37,7 +40,9 @@ let correctTotal= 0;
       answers: [
         "1%",
         "13%",
+        "50%",
         "100%"
+
       ],
       correctAnswer: "1%",
       explanation: "That's a lot of dang wood."
@@ -99,27 +104,34 @@ console.log('generateQuestion ran');
             <h1>${myQuestions[currentQuestion].question}</h1>
             <form>
             <fieldset>
-      
-              <label class="radio-button">
-                <input type="radio" name="answer-option" value="${myQuestions[currentQuestion].answers[0]}" required>
-                <span>${myQuestions[currentQuestion].answers[0]}</span>
-              </label>
+              <ul>
+
+               <li>
+                <input type="radio" id="a-option" name="answer-option" value="${myQuestions[currentQuestion].answers[0]}">
+                <label for="a-option">${myQuestions[currentQuestion].answers[0]}</label>
+                <div class="check"></div>
+              </li>
        
-              <label class="radio-button">
-                <input type="radio" name="answer-option" value="${myQuestions[currentQuestion].answers[1]}" required>
-                <span>${myQuestions[currentQuestion].answers[1]}</span>
-              </label>
-       
-              <label class="radio-button">
-                <input type="radio" name="answer-option" value="${myQuestions[currentQuestion].answers[2]}" required>
-                <span>${myQuestions[currentQuestion].answers[2]}</span>
-              </label>
-          
-              <label class="radio-button">
-                <input type="radio" name="answer-option" value="${myQuestions[currentQuestion].answers[3]}" required>
-                <span>${myQuestions[currentQuestion].answers[3]}</span>
-              </label>
-              
+               <li>
+                <input type="radio" id="b-option" name="answer-option" value="${myQuestions[currentQuestion].answers[1]}">
+                <label for="b-option">${myQuestions[currentQuestion].answers[1]}</label>
+                <div class="check"><div class="inside"></div></div>
+              </li>
+
+               <li>
+                <input type="radio" id="c-option" name="answer-option" value="${myQuestions[currentQuestion].answers[2]}">
+                <label for="c-option">${myQuestions[currentQuestion].answers[2]}</label>
+              <div class="check"><div class="inside"></div></div>
+              </li>
+
+               <li>
+                <input type="radio" id="d-option" name="answer-option" value="${myQuestions[currentQuestion].answers[3]}">
+                <label for="d-option">${myQuestions[currentQuestion].answers[3]}</label>
+              <div class="check"><div class="inside"></div></div>
+              </li>
+
+              </ul>
+
               <input type="submit" value="Submit Answer" class="button">
         
             </fieldset>
@@ -128,7 +140,7 @@ console.log('generateQuestion ran');
           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5
           </div>
           <div class="current-score">Score: <span class= "correct-answer">
-          ${correctTotal}</span 
+          ${correctTotal}</span>
           </div>
           </footer>
           </div>`;  
@@ -137,32 +149,12 @@ console.log('generateQuestion ran');
 
 
 
-
-//Function to display correct answer 
-function templateCorrectAnswerMessage(){
-  return `<section class="feedback-page popup">
-            <h1> Nice job! That's correct. </h1>
-            <p> ${myQuestions[currentQuestion].explanation} </p>
-          </section>`;
-              
-  }
-
-
-//Function to display Wrong answer
-function templateWrongAnswerMessage(){
-  let displayAnswer= `${myQuestions[currentQuestion].correctAnswer}`;
-  return `<section class="feedback-page popup">
-            <h1> Nope - the correct answer is ${displayAnswer}. </h1>
-            <p> ${myQuestions[currentQuestion].explanation} </p>
-          </section>`;
-  }
-
-
-
 //Function to display the generated question
 function displayQuestion(){
   console.log('displayQuestion ran');
   $(".js-quiz-page").html(templateQuestion());
+
+ 
  
 }
 
@@ -210,7 +202,8 @@ function displayCorrectAnswerMessage(){
             <h1> Nice job! That's correct. </h1>
             <p> ${myQuestions[currentQuestion].explanation} </p>
             <button class= "next-button" value="next-button"> Next Question</button>
-          </section>`;
+          </section>
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5`;
               
   }
 
@@ -222,7 +215,8 @@ function displayWrongAnswerMessage(){
             <h1> Nope - the correct answer is ${displayAnswer}. </h1>
             <p> ${myQuestions[currentQuestion].explanation} </p>
             <button class= "next-button" value="next-button"> Next Question</button>
-          </section>`;
+          </section>
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5`;
   }
 
 
@@ -249,17 +243,23 @@ function nextQuestion(){
     displayResults();
   }
 
+  $(".js-quiz-page").fadeIn(1000);
+
+  //progress bar + animation
   if (currentQuestion > 0) {
-    $("#bar").width('25%');
-    if (currentQuestion > 1)
-    $("#bar").width('50%');
-    if (currentQuestion > 2)
-    $("#bar").width('75%');
-    if (currentQuestion > 3)
-    $("#bar").width('90%');
-    if (currentQuestion > 4)
-    $("#bar").width('100%');
-}
+    if (currentQuestion == 1)
+    $("#bar").animate({width:'16.6%'});
+    if (currentQuestion == 2)
+    $("#bar").animate({width:'50%'});
+    if (currentQuestion == 3)
+    $("#bar").animate({width:'75%'});
+    if (currentQuestion == 4)
+    $("#bar").animate({width:'90%'});
+    if (currentQuestion == 5)
+    $("#bar").animate({width:'90%'});
+    if (currentQuestion > 5)
+    $("#bar").animate({width:'100%'});
+  }
   
   })
 }
@@ -301,6 +301,7 @@ function takeQuiz(){
   console.log('takeQuiz ran');
   $(".js-quiz-page").removeClass("hidden");
   $(".js-start-page").addClass("hidden");
+
   displayQuestion();
   handleAnswer();
   nextQuestion();
@@ -309,4 +310,6 @@ function takeQuiz(){
 }
 //when the page loads, call 'takeQuiz'
 $(takeQuiz());
+
+ $( document ).ready()
 
