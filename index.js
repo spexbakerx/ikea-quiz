@@ -1,203 +1,324 @@
-(function() {
+
+
+// counters for current question and correct total
+let currentQuestion= 0;
+let correctTotal= 0;
+
+// Fades in start page on page load
+document.getElementById('fader').style.opacity = 1;
+
+// Array of Objects that are the questions and answers
   const myQuestions = [
+
+    // Question #1
     {
-      id: 1,
       question: "How old was Ingvar Kamprad (R.I.P.) when he founded IKEA in 1943?",
-      answers: {
-        a: "24",
-        b: "17",
-        c: "89"
-      },
-      correctAnswer: "b",
+      answers: [
+        "24",
+        "17",
+        "89",
+        "13"
+      ],
+      correctAnswer: "17",
       explanation: "He was also an admitted member of the Nazi party back in the day, so maybe not R.I.P.?"
     },
+
+    // Question #2
     {
-      id: 2,
       question: "What does IKEA stand for?",
-      answers: {
-        a: "International Klein Everything Always",
-        b: "I Kan't Even Afford (this)",
-        c: "Ingvar Kamprad Elmtaryd Agunnaryd",
-        d: "Who cares it looks cool "
-      },
-      correctAnswer: "c",
+      answers: [
+        "International Klein Everything Always",
+        "I Kan't Even Afford (this)",
+        "Ingvar Kamprad Elmtaryd Agunnaryd",
+        "Who cares it looks cool "
+      ],
+      correctAnswer: "Ingvar Kamprad Elmtaryd Agunnaryd",
       explanation: "The first two letters are the founder's initials, Elmtaryd and Agunnaryd are the farm and village he grew up in, respectively."
     },    
+
+    // Question #3
     {
-      id: 3,
       question: "IKEA uses approximately how much of the world's entire commercial supply of wood?",
-      answers: {
-        a: "1%",
-        b: "13%",
-        c: "100%"
-      },
-      correctAnswer: "a",
+      answers: [
+        "1%",
+        "13%",
+        "50%",
+        "100%"
+
+      ],
+      correctAnswer: "1%",
       explanation: "That's a lot of dang wood."
     },
+
+    // Question #4
     {
-      id: 4,
       question: "Ikea was the first company to feature BLANK in one of its ads",
-      answers: {
-        a: "A talking dog (eat shit, Air Bud)",
-        b: "A gay couple (eat shit, straight people)",
-        c: "Another company's logo (way to go, Target)",
-        d: "JNCO Jeans"
-      },
-      correctAnswer: "b",
+      answers: [
+        "A talking dog (eat shit, Air Bud)",
+        "A gay couple (eat shit, breeders)",
+        "Another company's logo (Target's)",
+        "JNCO Jeans"
+      ],
+      correctAnswer: "A gay couple (eat shit, straight people)",
       explanation: ":') thx IKEA"
     },
+
+    // Question #5
     {
-      id: 5,
-      question: "Ikea changed it's typeface from Futura to Verdana in what year?",
-      answers: {
-        a: "2000",
-        b: "2017",
-        c: "1995",
-        d: "2009",
-      },
-      correctAnswer: "d",
+      question: "Ikea changed its typeface from Futura to Verdana in what year?",
+      answers: [
+      "2000",
+      "2017",
+      "1995",
+      "2009",
+      ],
+      correctAnswer: "2009",
       explanation: "Understandably, this caused a bit of uproar on the interwebs"
     }  
 
   ];
 
-  function buildQuiz() {
-    // we'll need a place to store the HTML output
-    const output = [];
 
-    // for each question...
-    myQuestions.forEach((currentQuestion, questionNumber) => {
-      // we'll want to store the list of answer choices
-      const answers = [];
+function templateQuestion() {
 
-      // and for each available answer...
-      for (letter in currentQuestion.answers) {
-        // ...add an HTML radio button
-        answers.push(
-          `<label>
-             <input type="radio" name="question${questionNumber}" value="${letter}">
-              ${currentQuestion.answers[letter]}
-           </label>`
-        );
-      }
+console.log('generateQuestion ran');
+  //HTML displayed for each question and answer
+  
+  return   `<div class= "js-question-answer-form">
+            <h1>${myQuestions[currentQuestion].question}</h1>
+            <form>
+            <fieldset>
+              <ul>
 
-      // add this question and its answers to the output
-      output.push(
-        `<div class="slide">
-           <div class="question"> ${currentQuestion.question} </div>
-           <div class="answers"> ${answers.join("")} </div>
-         </div>`
-      );
-    });
+               <li>
+                <input type="radio" id="a-option" name="answer-option" value="${myQuestions[currentQuestion].answers[0]}" required="required">
+                <label for="a-option">${myQuestions[currentQuestion].answers[0]}</label>
+                <div class="check"></div>
+              </li>
+       
+               <li>
+                <input type="radio" id="b-option" name="answer-option" value="${myQuestions[currentQuestion].answers[1]}" required="required">
+                <label for="b-option">${myQuestions[currentQuestion].answers[1]}</label>
+                <div class="check"><div class="inside"></div></div>
+              </li>
 
-    // finally combine our output list into one string of HTML and put it on the page
-    quizContainer.innerHTML = output.join("");
+               <li>
+                <input type="radio" id="c-option" name="answer-option" value="${myQuestions[currentQuestion].answers[2]}" required="required">
+                <label for="c-option">${myQuestions[currentQuestion].answers[2]}</label>
+              <div class="check"><div class="inside"></div></div>
+              </li>
+
+               <li>
+                <input type="radio" id="d-option" name="answer-option" value="${myQuestions[currentQuestion].answers[3]}" required="required">
+                <label for="d-option">${myQuestions[currentQuestion].answers[3]}</label>
+              <div class="check"><div class="inside"></div></div>
+              </li>
+
+              </ul>
+
+              <input type="submit" value="Check Answer" class="button">
+        
+            </fieldset>
+          </form>
+          <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5
+          </div>
+          <div class="current-score">Score: <span class= "correct-answer">
+          ${correctTotal}</span></div>`;  
+          
+}
+
+
+//Function to build correct answer 
+function templateCorrectAnswerMessage(){
+  return `<section class="feedback-page popup">
+            <h1> Nice job! That's correct. </h1>
+            <p> ${myQuestions[currentQuestion].explanation} </p>
+            <button class= "next-button" value="next-button"> Next Question</button>
+          </section>
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
+                    <div class="current-score">Score: <span class= "correct-answer">
+          ${correctTotal}</span>
+          </div>`;
   }
 
-  function showResults() {
+
+//Function to build wrong answer
+function templateWrongAnswerMessage(){
+  let displayAnswer= `${myQuestions[currentQuestion].correctAnswer}`;
+  return `<section class="feedback-page popup">
+            <h1> Nope - the correct answer is ${displayAnswer}. </h1>
+            <p> ${myQuestions[currentQuestion].explanation} </p>
+            <button class= "next-button" value="next-button"> Next Question</button>
+          </section>
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
+                     <div class="current-score">Score: <span class= "correct-answer">
+          ${correctTotal}</span>
+          </div>`;
+  }
 
 
-    var currentQuestion = myQuestions.indexOf();
-    console.log(currentQuestion);
-    // myQuestions.forEach(function(currentQuestion) {
-    // console.log(currentQuestion.correctAnswer);
-    // });
-
-
-
-
-      // if answer is correct
-      if (currentQuestion.correctAnswer.is(':checked')) {
-
-        // show correct and explanation
-        $('#explanation').html('<strong>Correct!</strong> ' + htmlEncode(quiz[currentQuestion]['explanation']));
-      } 
-      else {
-        // if answer is wrong or blank
-        // color the answers red
-        answerContainers[questionNumber].style.color = "red";
-
-        // show incorrect and explanation
-        $('#explanation').html('<strong>Incorrect.</strong> ' + htmlEncode(quiz[currentQuestion]['explanation']));
-      };
-    }
+//Function to display the generated question
+function displayQuestion(){
+  console.log('displayQuestion ran');
+  $(".js-quiz-page").html(templateQuestion());
+}
 
 
 
-  function endResults() {
-    // gather answer containers from our quiz
-    const answerContainers = quizContainer.querySelectorAll(".answers");
-
-    // keep track of user's answers
-    let numCorrect = 0;
-
-    // for each question...
-    myQuestions.forEach((currentQuestion, questionNumber) => {
-      // find selected answer
-      const answerContainer = answerContainers[questionNumber];
-      const selector = `input[name=question${questionNumber}]:checked`;
-      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-
-      // if answer is correct
-      if (userAnswer === currentQuestion.correctAnswer) {
-        // add to the number of correct answers
-        numCorrect++;
-
-      }
-    });
-
-    // show number of correct answers out of total
-    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
-  }  
-
-
-
-  function showSlide(n) {
-    slides[currentSlide].classList.remove("active-slide");
-    slides[n].classList.add("active-slide");
-    currentSlide = n;
+//Function to handle answers,update counter and score
+function handleAnswer(){
+  $('form').on('submit',function(event){
+    event.preventDefault();
+    console.log('handleAnswer ran');
+    var userAnswer= $('input:checked').val();
+    console.log(userAnswer);
+    console.log(myQuestions[currentQuestion].correctAnswer);
     
-    if (currentSlide === 0) {
-      previousButton.style.display = "none";
-    } else {
-      previousButton.style.display = "none";
-    }
+    checkAnswer(userAnswer);
+    updateQuestion();
     
-    if (currentSlide === slides.length - 1) {
-      nextButton.style.display = "none";
-      submitButton.style.display = "inline-block";
-    } else {
-      nextButton.style.display = "inline-block";
-      submitButton.style.display = "none";
+  });
+  
+}
+  
+
+//Function to check for correct/incorrect answer
+function checkAnswer(answer){
+
+    let rightAnswer = `${myQuestions[currentQuestion].correctAnswer}`;
+
+    if (answer === rightAnswer) {
+      console.log("Great Job. That's correct.");
+      $(".js-question-answer-form").addClass("hidden");
+      $(".js-quiz-page").html(templateCorrectAnswerMessage());
+      updateScore();
     }
+    else{
+      console.log("I'm sorry. That's not correct.");
+      $(".js-question-answer-form").addClass("hidden");
+      $(".js-quiz-page").html(templateWrongAnswerMessage());
+    } 
+}
+
+
+
+
+//Function to update score and question #
+function updateScore(){
+  correctTotal ++;
+  console.log('updateScore ran');
+}
+
+
+
+//Function to move to next question
+function nextQuestion(){
+  $('main').on ('click','.next-button',function(event){
+   event.preventDefault();
+   console.log('nextQuestion ran');
+   
+  if (currentQuestion < 5){
+    displayQuestion();
+    handleAnswer();
+  }
+  else {
+    displayResults();
   }
 
-  function showNextSlide() {
-    showSlide(currentSlide + 1);
+  $(".js-quiz-page").fadeIn(1000);
+
+  //progress bar + animation
+  if (currentQuestion > 0) {
+    if (currentQuestion == 1)
+    $("#bar").animate({width:'16.6%'});
+    if (currentQuestion == 2)
+    $("#bar").animate({width:'50%'});
+    if (currentQuestion == 3)
+    $("#bar").animate({width:'75%'});
+    if (currentQuestion == 4)
+    $("#bar").animate({width:'90%'});
+    if (currentQuestion == 5)
+    $("#bar").animate({width:'100%'});
+    if (currentQuestion > 5)
+    $("#bar").animate({width:'100%'});
   }
+  
+  })
+}
 
-  function showPreviousSlide() {
-    showSlide(currentSlide - 1);
-  }
 
-  const quizContainer = document.getElementById("quiz");
-  const resultsContainer = document.getElementById("results");
-  const submitButton = document.getElementById("submit");
+//Function to get next question
+function updateQuestion(){
+  currentQuestion++;
+  console.log(currentQuestion);
+}
 
-  // display quiz right away
-  buildQuiz();
 
-  const previousButton = document.getElementById("previous");
-  const checkButton = document.getElementById("check");
-  const nextButton = document.getElementById("next");
-  const slides = document.querySelectorAll(".slide");
-  let currentSlide = 0;
+  
 
-  showSlide(0);
+//Function to display results
+function displayResults(){
+   //Hide Quiz & show results;
+  $(".js-quiz-page").addClass("hidden");
+  $('.feedback-page').addClass("hidden");
+  $(".js-quiz-result").removeClass("hidden");
+  console.log("displayResults ran");
 
-  // on submit, show results
-  submitButton.addEventListener("click", endResults);
-  checkButton.addEventListener("click", showResults);
-  previousButton.addEventListener("click", showPreviousSlide);
-  nextButton.addEventListener("click", showNextSlide);
-})();
+  //Display Results
+  $(".js-quiz-result").html(showFinalScore());
+  //Restart Quiz
+  restartQuiz();
+
+}
+
+  
+//Function to show final results
+function showFinalScore(){
+  console.log("showFinalScore ran")
+  
+
+  return `<section class="js-quiz-result">
+            <h1> Nicely Done!</h1>
+            <p> You correctly answered ${correctTotal} out of 5 questions.</p>
+            <button class= "restart-button" value="restart-btn"> Play Again</button>
+          </section>`;
+          
+}
+
+//Function to Restart Quiz
+function restartQuiz(){
+  $('main').on ('click','.restart-button', function(event){
+    console.log("restart button has been clicked");
+    location.reload();
+    // $("main").fadeIn(1000);
+    
+  })
+}
+
+
+//Function to Handle Start quiz button
+function startQuiz(){
+  $(".start-button").on('click',function (event){
+    console.log('startQuiz ran');
+    $(".js-quiz-page").removeClass("hidden");
+    $(".js-start-page").addClass("hidden");
+  });
+} 
+
+
+
+//Function to Start Quiz
+function takeQuiz(){
+  console.log('takeQuiz ran');
+  startQuiz();
+  displayQuestion();
+  handleAnswer();
+  nextQuestion();
+ 
+  
+}
+//when the page loads, call 'takeQuiz'
+$(takeQuiz());
+
+$( document ).ready()
+
