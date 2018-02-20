@@ -103,6 +103,7 @@
 
   button{
     width: 90%;
+    border-radius: none;
   }
 
   input[type=submit] {
