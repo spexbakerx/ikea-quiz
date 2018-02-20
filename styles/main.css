@@ -14,6 +14,11 @@ body {
 
 }
 
+main {
+	position: relative;
+	height: 100vh;
+}
+
 .skew-background {
     position: absolute;
     height: 100%;
@@ -31,15 +36,24 @@ body {
 }
 
 header {
-	margin-top: 5%;
+/*	margin-top: 5%;*/
 	line-height: 1em;
 	margin-bottom: 0px;
+
 }
 
 header h1 {
-	font-size: 5vw;
+	font-size: 50px;
 	line-height: 1em;
 	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.js-quiz-result h1 {
+	font-size: 50px;
+	line-height: 1em;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 
@@ -49,6 +63,7 @@ h1{
   color: #fff;
   font-weight: normal;
   line-height: 1.5em;
+  margin-bottom: -20px;
 }
 
 .question{
@@ -117,19 +132,7 @@ input[type=submit]:hover{
 	-o-transition: all 0.20s ease-in-out;
 }
 
-.slide{
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.20s;
-}
-.active-slide{
-  opacity: 1;
-  z-index: 3;
-}
+
 .quiz-container{
   position: relative;
   height: 200px;
@@ -174,6 +177,7 @@ fieldset {
 	position:absolute;
    top:0;
    right:0;
+
    font-size: 10px;
    text-transform: uppercase;
    padding: 15px 15px 0px 0px;
@@ -181,28 +185,35 @@ fieldset {
    color: white;
 }
 
+.current-score {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+   font-size: 10px;
+   text-transform: uppercase;
+   padding: 15px;
+   letter-spacing: 1px;
+   color: white;
+}
+
+.refresh-icon {
+  font-size: 500%;
+  -webkit-animation: spin 4s infinite linear;
+	bottom: 0;
+	float: right;
+	position: absolute;
+}
+
+@-webkit-keyframes spin {
+	0%  {-webkit-transform: rotate(0deg);}
+	100% {-webkit-transform: rotate(360deg);}
+}
+
 #fader {
    opacity:0;
    transition: opacity 2s;
 }
 
-/*ul li input[type=radio]{
-  position: absolute;
-  visibility: hidden;
-}
-
-ul li label{
-  display: block;
-  position: relative;
-  font-weight: 300;
-  font-size: 1em;
-  padding: 25px 25px 25px 80px;
-  margin: 10px auto;
-  height: 30px;
-  z-index: 9;
-  cursor: pointer;
-  -webkit-transition: all 0.25s linear;
-}*/
 
 .main ul{
   list-style: none;
@@ -221,8 +232,9 @@ ul li{
   text-align: left;
   float: left;
   width: 100%;
-/*	border-bottom: 1px solid #ffffff;*/
+  margin-bottom: 10px;
 }
+
 
 ul li input[type=radio]{
   position: absolute;
@@ -289,3 +301,22 @@ input[type=radio]:checked ~ .check::before{
 input[type=radio]:checked ~ label{
   color: #ffcc00;
 }
+
+.js-quiz-page {
+	padding: 20% 0;
+}
+
+.feedback-page.popup {
+	padding: 20% 0;
+}
+
+.feedback-page.popup h1{
+	margin-bottom: 20px;
+}
+
+.js-start-page {
+	padding: 20% 0;
+}
+
+
+

@@ -63,14 +63,14 @@ document.getElementById('fader').style.opacity = 1;
 
     // Question #5
     {
-      question: "Ikea changed it's typeface from Futura to Verdana in what year?",
+      question: "Ikea changed its typeface from Futura to Verdana in what year?",
       answers: [
       "2000",
       "2017",
       "1995",
       "2009",
       ],
-      correctAnswer: "d",
+      correctAnswer: "2009",
       explanation: "Understandably, this caused a bit of uproar on the interwebs"
     }  
 
@@ -107,43 +107,39 @@ console.log('generateQuestion ran');
               <ul>
 
                <li>
-                <input type="radio" id="a-option" name="answer-option" value="${myQuestions[currentQuestion].answers[0]}">
+                <input type="radio" id="a-option" name="answer-option" value="${myQuestions[currentQuestion].answers[0]}" required="required">
                 <label for="a-option">${myQuestions[currentQuestion].answers[0]}</label>
                 <div class="check"></div>
               </li>
        
                <li>
-                <input type="radio" id="b-option" name="answer-option" value="${myQuestions[currentQuestion].answers[1]}">
+                <input type="radio" id="b-option" name="answer-option" value="${myQuestions[currentQuestion].answers[1]}" required="required">
                 <label for="b-option">${myQuestions[currentQuestion].answers[1]}</label>
                 <div class="check"><div class="inside"></div></div>
               </li>
 
                <li>
-                <input type="radio" id="c-option" name="answer-option" value="${myQuestions[currentQuestion].answers[2]}">
+                <input type="radio" id="c-option" name="answer-option" value="${myQuestions[currentQuestion].answers[2]}" required="required">
                 <label for="c-option">${myQuestions[currentQuestion].answers[2]}</label>
               <div class="check"><div class="inside"></div></div>
               </li>
 
                <li>
-                <input type="radio" id="d-option" name="answer-option" value="${myQuestions[currentQuestion].answers[3]}">
+                <input type="radio" id="d-option" name="answer-option" value="${myQuestions[currentQuestion].answers[3]}" required="required">
                 <label for="d-option">${myQuestions[currentQuestion].answers[3]}</label>
               <div class="check"><div class="inside"></div></div>
               </li>
 
               </ul>
 
-              <input type="submit" value="Submit Answer" class="button">
+              <input type="submit" value="Check Answer" class="button">
         
             </fieldset>
           </form>
-          <footer>
           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5
           </div>
           <div class="current-score">Score: <span class= "correct-answer">
-          ${correctTotal}</span>
-          </div>
-          </footer>
-          </div>`;  
+          ${correctTotal}</span></div>`;  
           
 }
 
@@ -203,8 +199,10 @@ function displayCorrectAnswerMessage(){
             <p> ${myQuestions[currentQuestion].explanation} </p>
             <button class= "next-button" value="next-button"> Next Question</button>
           </section>
-           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5`;
-              
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
+                    <div class="current-score">Score: <span class= "correct-answer">
+          ${correctTotal}</span>
+          </div>`;
   }
 
 
@@ -216,7 +214,10 @@ function displayWrongAnswerMessage(){
             <p> ${myQuestions[currentQuestion].explanation} </p>
             <button class= "next-button" value="next-button"> Next Question</button>
           </section>
-           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5`;
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
+                     <div class="current-score">Score: <span class= "correct-answer">
+          ${correctTotal}</span>
+          </div>`;
   }
 
 
@@ -256,7 +257,7 @@ function nextQuestion(){
     if (currentQuestion == 4)
     $("#bar").animate({width:'90%'});
     if (currentQuestion == 5)
-    $("#bar").animate({width:'90%'});
+    $("#bar").animate({width:'100%'});
     if (currentQuestion > 5)
     $("#bar").animate({width:'100%'});
   }
@@ -273,6 +274,7 @@ function updateQuestion(){
 
 
   
+
 //Function to display results
 function displayResults(){
    //Hide Quiz & show results;
@@ -284,24 +286,56 @@ function displayResults(){
   //Display Results
   $(".js-quiz-result").html(showFinalScore());
   //Restart Quiz
-  // restartQuiz();
+  restartQuiz();
 
 }
 
   
+//Function to restart quiz
+function showFinalScore(){
+  console.log("showFinalScore ran")
+  
+
+  return `<section class="js-quiz-result">
+            <h1> Nicely Done!</h1>
+            <p> You correctly answered ${correctTotal} out of 5 questions.</p>
+            <button class= "restart-button" value="restart-btn"> Play Again</button>
+          </section>`;
+          
+}
+
+//Function to Restart Quiz
+function restartQuiz(){
+  $('main').on ('click','.restart-button', function(event){
+    console.log("restart button has been clicked");
+    //event.preventDefault();
+   // currentQuestion = 0;
+  //  correctTotal=0;
+ // $('.js-quiz-result').addClass("hidden");
+ // $('.js-start-page').removeClass("hidden");
+ //startQuiz();
+    location.reload();
+    $("main").fadeIn(1000);
+    
+  })
+}
 
 
-
-
+//Function to Handle Start quiz button
+function startQuiz(){
+  $(".start-button").on('click',function (event){
+    console.log('startQuiz ran');
+    $(".js-quiz-page").removeClass("hidden");
+    $(".js-start-page").addClass("hidden");
+  });
+} 
 
 
 
 //Function to Start Quiz
 function takeQuiz(){
   console.log('takeQuiz ran');
-  $(".js-quiz-page").removeClass("hidden");
-  $(".js-start-page").addClass("hidden");
-
+  startQuiz();
   displayQuestion();
   handleAnswer();
   nextQuestion();
