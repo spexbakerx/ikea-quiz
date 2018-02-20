@@ -1,8 +1,10 @@
 
 
+// counters for current question and correct total
 let currentQuestion= 0;
 let correctTotal= 0;
 
+// Fades in start page on page load
 document.getElementById('fader').style.opacity = 1;
 
 // Array of Objects that are the questions and answers
@@ -54,7 +56,7 @@ document.getElementById('fader').style.opacity = 1;
       answers: [
         "A talking dog (eat shit, Air Bud)",
         "A gay couple (eat shit, straight people)",
-        "Another company's logo (way to go, Target)",
+        "Another company's logo (Target's)",
         "JNCO Jeans"
       ],
       correctAnswer: "A gay couple (eat shit, straight people)",
@@ -76,26 +78,8 @@ document.getElementById('fader').style.opacity = 1;
 
   ];
 
-//Function to build question
+
 function templateQuestion() {
-
-  // let thisQuestion = $(myQuestions[currentQuestion].question);
-  // let thisAnswers = $(myQuestions[currentQuestion].answers);
-
-
-  // //function to create radio buttons for each question         
-  // function createRadios() {
-  //     for(let i of thisAnswers) {
-  //       return `<input type='radio' id='myRadio"+i+"' value='i'>
-  //               <label class="radio-button">
-  //               <span>i</span>
-  //               </label>`;
-  //     }
-  // }
-
-  // createRadios(); 
-
-  //function to create radio buttons for each question         
 
 console.log('generateQuestion ran');
   //HTML displayed for each question and answer
@@ -144,14 +128,39 @@ console.log('generateQuestion ran');
 }
 
 
+//Function to build correct answer 
+function templateCorrectAnswerMessage(){
+  return `<section class="feedback-page popup">
+            <h1> Nice job! That's correct. </h1>
+            <p> ${myQuestions[currentQuestion].explanation} </p>
+            <button class= "next-button" value="next-button"> Next Question</button>
+          </section>
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
+                    <div class="current-score">Score: <span class= "correct-answer">
+          ${correctTotal}</span>
+          </div>`;
+  }
+
+
+//Function to build wrong answer
+function templateWrongAnswerMessage(){
+  let displayAnswer= `${myQuestions[currentQuestion].correctAnswer}`;
+  return `<section class="feedback-page popup">
+            <h1> Nope - the correct answer is ${displayAnswer}. </h1>
+            <p> ${myQuestions[currentQuestion].explanation} </p>
+            <button class= "next-button" value="next-button"> Next Question</button>
+          </section>
+           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
+                     <div class="current-score">Score: <span class= "correct-answer">
+          ${correctTotal}</span>
+          </div>`;
+  }
+
 
 //Function to display the generated question
 function displayQuestion(){
   console.log('displayQuestion ran');
   $(".js-quiz-page").html(templateQuestion());
-
- 
- 
 }
 
 
@@ -173,7 +182,6 @@ function handleAnswer(){
 }
   
 
-
 //Function to check for correct/incorrect answer
 function checkAnswer(answer){
 
@@ -182,43 +190,16 @@ function checkAnswer(answer){
     if (answer === rightAnswer) {
       console.log("Great Job. That's correct.");
       $(".js-question-answer-form").addClass("hidden");
-      $(".js-quiz-page").html(displayCorrectAnswerMessage());
+      $(".js-quiz-page").html(templateCorrectAnswerMessage());
       updateScore();
     }
     else{
       console.log("I'm sorry. That's not correct.");
       $(".js-question-answer-form").addClass("hidden");
-      $(".js-quiz-page").html(displayWrongAnswerMessage());
+      $(".js-quiz-page").html(templateWrongAnswerMessage());
     } 
 }
 
-//Function to display correct answer 
-function displayCorrectAnswerMessage(){
-  return `<section class="feedback-page popup">
-            <h1> Nice job! That's correct. </h1>
-            <p> ${myQuestions[currentQuestion].explanation} </p>
-            <button class= "next-button" value="next-button"> Next Question</button>
-          </section>
-           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
-                    <div class="current-score">Score: <span class= "correct-answer">
-          ${correctTotal}</span>
-          </div>`;
-  }
-
-
-//Function to display Wrong answer
-function displayWrongAnswerMessage(){
-  let displayAnswer= `${myQuestions[currentQuestion].correctAnswer}`;
-  return `<section class="feedback-page popup">
-            <h1> Nope - the correct answer is ${displayAnswer}. </h1>
-            <p> ${myQuestions[currentQuestion].explanation} </p>
-            <button class= "next-button" value="next-button"> Next Question</button>
-          </section>
-           <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
-                     <div class="current-score">Score: <span class= "correct-answer">
-          ${correctTotal}</span>
-          </div>`;
-  }
 
 
 
@@ -291,7 +272,7 @@ function displayResults(){
 }
 
   
-//Function to restart quiz
+//Function to show final results
 function showFinalScore(){
   console.log("showFinalScore ran")
   
@@ -308,14 +289,8 @@ function showFinalScore(){
 function restartQuiz(){
   $('main').on ('click','.restart-button', function(event){
     console.log("restart button has been clicked");
-    //event.preventDefault();
-   // currentQuestion = 0;
-  //  correctTotal=0;
- // $('.js-quiz-result').addClass("hidden");
- // $('.js-start-page').removeClass("hidden");
- //startQuiz();
     location.reload();
-    $("main").fadeIn(1000);
+    // $("main").fadeIn(1000);
     
   })
 }
@@ -345,5 +320,5 @@ function takeQuiz(){
 //when the page loads, call 'takeQuiz'
 $(takeQuiz());
 
- $( document ).ready()
+$( document ).ready()
 

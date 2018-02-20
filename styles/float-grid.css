@@ -81,3 +81,31 @@
       width: 100%
   }
 }
+
+
+ /* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+
+    
+  .current-score {
+  top: 0;
+  left: 0;
+  position: absolute;
+  }
+
+  .js-question-answer-form ul li{
+    color: white;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    height: auto;
+  }
+
+  button{
+    width: 90%;
+  }
+
+  input[type=submit] {
+    width: 90%
+  }
+}

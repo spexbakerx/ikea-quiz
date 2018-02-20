@@ -5,10 +5,6 @@ body {
 	color: #ffcc00;
 	justify-content: center;
 	align-items: center;
-/*	background-image: url("../images/diagram-1.png");
-	background-repeat: no-repeat;
-	background-position: 50% 50%; */
-
 	perspective: 600px;
 	line-height: 1.5em;
 
@@ -70,11 +66,12 @@ h1{
   font-size: 18px;
   margin-bottom: 10px;
   color: white;
-
-/*  text-transform: uppercase;*/
 }
 
-
+.start-button {
+	height: 66px;
+	font-family: 'Verdana', sans-serif;
+}
 
 button{
   font-family: 'Verdana', sans-serif;
@@ -152,11 +149,6 @@ input[type=submit]:hover{
   display: none;
 }
 
-/*.radio-button{
-  display: block;
-  padding: 10px;
-  text-align: left;
-}*/
 
 fieldset {
 	border: 0px;
@@ -303,13 +295,39 @@ input[type=radio]:checked ~ label{
   color: #ffcc00;
 }
 
+
+/* animations for DOM loads */
+
 .js-quiz-page {
 	padding: 20% 0;
+  	animation: fadeIn 0.5s both ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .feedback-page.popup {
 	padding: 20% 0;
+	animation: fadeIn 0.5s both ease;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 
 .feedback-page.popup h1{
 	margin-bottom: 20px;
@@ -318,7 +336,47 @@ input[type=radio]:checked ~ label{
 .js-start-page {
 	padding: 20% 0;
 	font-family: 'Verdana', sans-serif;
+	animation: fadeIn 1s both ease;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.js-question-answer-form {
+	animation: fadeIn 0.5s both ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.js-question-quiz-results {
+	animation: fadeIn 0.5s both ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 
 
 
