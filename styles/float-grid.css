@@ -101,13 +101,14 @@
     height: auto;
   }
 
-  button{
+  .button{
     width: 90%;
     border-radius: 0px;
   }
 
   input[type=submit] {
-    width: 90%
+    width: 90%;
+    border-radius: 0px;
   }
 
 
