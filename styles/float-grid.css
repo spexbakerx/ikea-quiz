@@ -103,12 +103,12 @@
 
   .button{
     width: 90%;
-    border-radius: 0px;
+    -webkit-appearance: none;
   }
 
   input[type=submit] {
     width: 90%;
-    border-radius: 0px;
+    -webkit-appearance: none;
   }
 
 
