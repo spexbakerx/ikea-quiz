@@ -77,7 +77,7 @@ h1{
 
 
 button{
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Verdana', sans-serif;
 	font-size: 22px;
 	color: #fff;
 	background-color: Transparent;
@@ -105,7 +105,7 @@ button:hover{
 
 
 input[type=submit]  {
-	font-family: 'Work Sans', sans-serif;
+	font-family: 'Verdana', sans-serif;
 	font-size: 22px;
 	color: #fff;
 	background-color: Transparent;
