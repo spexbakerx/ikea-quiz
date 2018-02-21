@@ -389,8 +389,6 @@ input[type=radio]:checked ~ label{
   }
 }
 
-.sticky {
-	position: fixed;
-}
+
 
 

@@ -59,7 +59,7 @@ document.getElementById('fader').style.opacity = 1;
         "Another company's logo (Target's)",
         "JNCO Jeans"
       ],
-      correctAnswer: "A gay couple (eat shit, straight people)",
+      correctAnswer: "A gay couple (eat shit, breeders)",
       explanation: ":') thx IKEA"
     },
 
@@ -116,7 +116,8 @@ console.log('generateQuestion ran');
 
               </ul>
 
-              <input type="submit" value="Check Answer" class="button">
+              <input type="submit" value="Check Answer" class="button" id="check-button">
+
         
             </fieldset>
           </form>
@@ -133,10 +134,11 @@ function templateCorrectAnswerMessage(){
   return `<section class="feedback-page popup">
             <h1> Nice job! That's correct. </h1>
             <p> ${myQuestions[currentQuestion].explanation} </p>
-            <button class= "next-button" value="next-button"> Next Question</button>
+            <button class= "next-button button" value="next-button" id="next-button"> Next Question</button>
+            <button class= "next-button button hidden" value="last-button" id="last-button"> See Results</button>
           </section>
            <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
-                    <div class="current-score">Score: <span class= "correct-answer">
+                    <div class="current-score" id="current-score">Score: <span class= "correct-answer">
           ${correctTotal}</span>
           </div>`;
   }
@@ -148,10 +150,11 @@ function templateWrongAnswerMessage(){
   return `<section class="feedback-page popup">
             <h1> Nope - the correct answer is ${displayAnswer}. </h1>
             <p> ${myQuestions[currentQuestion].explanation} </p>
-            <button class= "next-button" value="next-button"> Next Question</button>
+            <button class= "next-button button" value="next-button" id="next-button"> Next Question</button>
+            <button class= "next-button button hidden" value="last-button" id="last-button"> See Results</button>
           </section>
            <div class="current-question" >Question: <span class= "question-number">${currentQuestion + 1} </span> of 5</div>
-                     <div class="current-score">Score: <span class= "correct-answer">
+                     <div class="current-score" id="current-score">Score: <span class= "correct-answer">
           ${correctTotal}</span>
           </div>`;
   }
@@ -162,7 +165,6 @@ function displayQuestion(){
   console.log('displayQuestion ran');
   $(".js-quiz-page").html(templateQuestion());
 }
-
 
 
 //Function to handle answers,update counter and score
@@ -191,15 +193,25 @@ function checkAnswer(answer){
       console.log("Great Job. That's correct.");
       $(".js-question-answer-form").addClass("hidden");
       $(".js-quiz-page").html(templateCorrectAnswerMessage());
+
+      if (currentQuestion == 4){
+        $("#last-button").removeClass("hidden");
+        $("#next-button").addClass("hidden");
+      }
       updateScore();
+
+
     }
     else{
       console.log("I'm sorry. That's not correct.");
       $(".js-question-answer-form").addClass("hidden");
       $(".js-quiz-page").html(templateWrongAnswerMessage());
+      if (currentQuestion == 4){
+        $("#last-button").removeClass("hidden");
+        $("#next-button").addClass("hidden");
+      }
     } 
 }
-
 
 
 
@@ -213,7 +225,7 @@ function updateScore(){
 
 //Function to move to next question
 function nextQuestion(){
-  $('main').on ('click','.next-button',function(event){
+  $('main').on ('click','button',function(event){
    event.preventDefault();
    console.log('nextQuestion ran');
    
@@ -222,6 +234,7 @@ function nextQuestion(){
     handleAnswer();
   }
   else {
+    console.log(correctTotal);
     displayResults();
   }
 
@@ -242,7 +255,9 @@ function nextQuestion(){
     if (currentQuestion > 5)
     $("#bar").animate({width:'100%'});
   }
-  
+
+
+
   })
 }
 
@@ -276,11 +291,15 @@ function displayResults(){
 function showFinalScore(){
   console.log("showFinalScore ran")
   
-
+  $("#current-score").addClass("hidden");
+  
   return `<section class="js-quiz-result">
             <h1> Nicely Done!</h1>
             <p> You correctly answered ${correctTotal} out of 5 questions.</p>
-            <button class= "restart-button" value="restart-btn"> Play Again</button>
+            <button class= "restart-button button" value="restart-btn"> Play Again</button>
+            <div class="current-score" id="current-score-2">Score: <span class= "correct-answer">
+          ${correctTotal}</span>
+          </div>
           </section>`;
           
 }
